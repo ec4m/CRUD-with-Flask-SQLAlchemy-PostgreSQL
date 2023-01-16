@@ -25,9 +25,21 @@ def add_contact():
   return redirect('/contact')
 
 
-@contact.route('/update')
-def update_contact():
-  return "Update contact"
+@contact.route('/update/<id>', methods=['GET','POST'])
+def update_contact(id):
+  contact = ContactModel.query.get(id)
+  
+  if request.method == 'POST':
+    contact.fullname = request.form['fullname'] # Se asignan los nuevos valores
+    contact.email = request.form['email']
+    contact.phone = request.form['phone']
+    
+    db.session.commit()
+
+    return redirect(url_for('contact_blueprint.home'))
+  else:
+    return render_template('update.html', contact=contact)
+
 
 
 @contact.route('/delete/<id>')

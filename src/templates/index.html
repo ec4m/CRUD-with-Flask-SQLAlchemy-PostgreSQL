@@ -12,7 +12,7 @@
     <div>
       <h5>{{contact.fullname}}</h5>
       <div>
-        <a href="{{ url_for('contact_blueprint.update_contact') }}">Update</a>
+        <a href="{{ url_for('contact_blueprint.update_contact', id=contact.id) }}">Update</a>
         <a href="{{ url_for('contact_blueprint.delete_contact', id=contact.id) }}">Delete</a>
       </div>
       <p>{{contact.email}}</p>
