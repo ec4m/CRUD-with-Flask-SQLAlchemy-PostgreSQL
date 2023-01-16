@@ -1,3 +1,18 @@
-<h1>Home page</h1>
+<!-- Los datos del formulario seran enviados a travez del metodo /new -->
+<form action="/contact/new" method="POST"> 
+  <input type="text" name="fullname" placeholder="Write your fullname">
+  <input type="text" name="email" placeholder="Write your email">
+  <input type="text" name="phone" placeholder="Write your phone">
+  <button>Save</button>
+</form>
 
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, consectetur.</p>
+
+<div>
+  {% for contact in contacts %}
+    <div>
+      <h5>{{contact.fullname}}</h5>
+      <p>{{contact.email}}</p>
+      <p>{{contact.phone}}</p>
+    </div>
+  {% endfor %}
+</div>
