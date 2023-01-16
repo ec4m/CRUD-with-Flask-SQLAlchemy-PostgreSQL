@@ -56,3 +56,8 @@ def delete_contact(id):
   flash("Contact deleted successfully!")
 
   return redirect(url_for('contact_blueprint.home'))
+
+
+@contact.route('/about')
+def about():
+  return render_template('about.html')
