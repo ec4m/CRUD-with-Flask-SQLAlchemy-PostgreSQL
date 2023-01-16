@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+# Variables de entorno
+from config import DATABASE_CONNECTION_URI
+
 # Routes
 from routes import Contact
 # Database
@@ -9,7 +12,7 @@ from database.db import db
 app = Flask(__name__)
 app.secret_key = "secret key"
 # Estoy configurando y se estoy pasando app a la clase SQLAlchemy.
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://newpostgres:elian@localhost/contactsdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_CONNECTION_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 SQLAlchemy(app)
 
