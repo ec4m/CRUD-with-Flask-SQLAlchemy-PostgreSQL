@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.ContactModel import ContactModel
 from database.db import db
 
@@ -22,19 +22,23 @@ def add_contact():
   db.session.add(contact)
   db.session.commit()
 
+  flash("Contact added successfully!")
+
   return redirect('/contact')
 
 
 @contact.route('/update/<id>', methods=['GET','POST'])
 def update_contact(id):
   contact = ContactModel.query.get(id)
-  
+
   if request.method == 'POST':
     contact.fullname = request.form['fullname'] # Se asignan los nuevos valores
     contact.email = request.form['email']
     contact.phone = request.form['phone']
     
     db.session.commit()
+
+    flash("Contact updated successfully!")
 
     return redirect(url_for('contact_blueprint.home'))
   else:
@@ -48,5 +52,7 @@ def delete_contact(id):
 
   db.session.delete(contact)
   db.session.commit()
+
+  flash("Contact deleted successfully!")
 
   return redirect(url_for('contact_blueprint.home'))
