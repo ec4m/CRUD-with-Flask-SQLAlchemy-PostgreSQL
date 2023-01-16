@@ -1,30 +1,36 @@
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-      {{ message }}
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+{% extends 'base.html' %}
 
-<!-- Los datos del formulario seran enviados a travez del metodo /new -->
-<form action="/contact/new" method="POST"> 
-  <input type="text" name="fullname" placeholder="Write your fullname">
-  <input type="text" name="email" placeholder="Write your email">
-  <input type="text" name="phone" placeholder="Write your phone">
-  <button>Save</button>
-</form>
+{% block body %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Los datos del formulario seran enviados a travez del metodo /new -->
+  <form action="/contact/new" method="POST"> 
+    <input type="text" name="fullname" placeholder="Write your fullname">
+    <input type="text" name="email" placeholder="Write your email">
+    <input type="text" name="phone" placeholder="Write your phone">
+    <button>Save</button>
+  </form>
 
 
-<div>
-  {% for contact in contacts %}
-    <div>
-      <h5>{{contact.fullname}}</h5>
+  <div>
+    {% for contact in contacts %}
       <div>
-        <a href="{{ url_for('contact_blueprint.update_contact', id=contact.id) }}">Update</a>
-        <a href="{{ url_for('contact_blueprint.delete_contact', id=contact.id) }}">Delete</a>
+        <h5>{{contact.fullname}}</h5>
+        <div>
+          <a href="{{ url_for('contact_blueprint.update_contact', id=contact.id) }}">Update</a>
+          <a href="{{ url_for('contact_blueprint.delete_contact', id=contact.id) }}">Delete</a>
+        </div>
+        <p>{{contact.email}}</p>
+        <p>{{contact.phone}}</p>
       </div>
-      <p>{{contact.email}}</p>
-      <p>{{contact.phone}}</p>
-    </div>
-  {% endfor %}
-</div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
